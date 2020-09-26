@@ -1,0 +1,26 @@
+version: '3.3'
+services:
+  frontend:
+    container_name: homemade_frontend
+    image: homemade_frontend
+    build: ./frontend
+    stdin_open: true
+    tty: true
+    ports:
+      - 3000:3000
+  backend:
+    container_name: homemade_backend
+    image: homemade_backend
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - dbpostgresql
+  dbpostgresql:
+    image: library/postgres:latest
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_PASSWORD=Sintelix1234
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=homemade
